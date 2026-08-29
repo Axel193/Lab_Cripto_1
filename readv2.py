@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from scapy.all import rdpcap, IP, ICMP, Raw
 import sys
 
