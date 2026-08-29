@@ -24,9 +24,10 @@ def obtener_mensaje(archivo, ip_destino):
         if paquete.haslayer(IP) and paquete.haslayer(ICMP) and paquete.haslayer(Raw):
             if paquete[IP].dst == ip_destino and paquete[ICMP].type == 8:
                 datos = paquete[Raw].load
-                if len(datos) == 1:
+                if len(datos) >= 1:
                     try:
-                        mensaje += datos.decode("utf-8")
+                        # Extrae únicamente el primer byte (el carácter) y descarta el relleno
+                        mensaje += datos[0:1].decode("utf-8")
                     except UnicodeDecodeError:
                         continue
     return mensaje
