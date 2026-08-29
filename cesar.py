@@ -1,6 +1,5 @@
 import sys
 
-
 def cifrar_cesar(texto, corrimiento):
     resultado = ""
 
@@ -19,7 +18,6 @@ def cifrar_cesar(texto, corrimiento):
             resultado += caracter
 
     return resultado
-
 
 if len(sys.argv) != 3:
     print("Uso: python3 cesar.py \"texto\" corrimiento")
