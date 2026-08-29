@@ -76,13 +76,10 @@ def extraer_mensaje(archivo):
 
 
 def main():
-
-    if len(sys.argv) != 2:
-        print("Uso:")
-        print("    python readv2.py cesar.pcapng")
-        sys.exit(1)
-
-    archivo = sys.argv[1]
+    if len(sys.argv) == 2:
+        archivo = sys.argv[1]
+    else:
+        archivo = "cesar.pcapng" 
 
     print(f"\nLeyendo archivo: {archivo}")
     print("-" * 60)
