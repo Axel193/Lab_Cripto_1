@@ -1,21 +1,27 @@
 from scapy.all import IP, ICMP, Raw, send
+import sys
 
-print("=== ENVÍO DE CARACTERES MEDIANTE ICMP ===")
+if len(sys.argv) != 3:
+    print('Uso: python3 pingv4.py "texto" IP_DESTINO')
+    sys.exit(1)
 
-destino = input("Ingrese la IP de destino: ")
-mensaje = input("Ingrese el mensaje descifrado: ")
+texto = sys.argv[1]
+ip_destino = sys.argv[2]
 
-print("\nEnviando caracteres...\n")
+print("Enviando caracteres mediante ICMP...")
+print(f"Destino: {ip_destino}")
+print(f"Caracteres a enviar: {len(texto)}")
 
-for caracter in mensaje:
+for caracter in texto:
+
     paquete = (
-        IP(dst=destino) /
-        ICMP() /
-        Raw(load=caracter.encode("utf-8"))
+        IP(dst=ip_destino)
+        / ICMP(type=8, code=0)
+        / Raw(load=caracter.encode("utf-8"))
     )
 
     send(paquete, verbose=False)
 
-    print(f"Enviado: '{caracter}'")
+    print(f"Enviado: {repr(caracter)}")
 
-print("\nTodos los caracteres fueron enviados.")
+print("Transmisión finalizada.")

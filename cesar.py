@@ -1,30 +1,38 @@
-def cifrar_cesar(mensaje, saltos):
+import sys
+
+
+def cifrar_cesar(texto, corrimiento):
     resultado = ""
 
-    for caracter in mensaje:
-        if caracter.isupper():
-            resultado += chr((ord(caracter) - ord('A') + saltos) % 26 + ord('A'))
-        elif caracter.islower():
-            resultado += chr((ord(caracter) - ord('a') + saltos) % 26 + ord('a'))
+    for caracter in texto:
+        if 'A' <= caracter <= 'Z':
+            resultado += chr(
+                (ord(caracter) - ord('A') + corrimiento) % 26
+                + ord('A')
+            )
+        elif 'a' <= caracter <= 'z':
+            resultado += chr(
+                (ord(caracter) - ord('a') + corrimiento) % 26
+                + ord('a')
+            )
         else:
             resultado += caracter
 
     return resultado
 
 
-print("=== CIFRADO DE CÉSAR ===")
+if len(sys.argv) != 3:
+    print("Uso: python3 cesar.py \"texto\" corrimiento")
+    sys.exit(1)
 
-mensaje = input("Ingrese el mensaje a cifrar: ")
+texto = sys.argv[1]
 
-while True:
-    try:
-        saltos = int(input("Ingrese la cantidad de saltos: "))
-        break
-    except ValueError:
-        print("Por favor, ingrese un número entero.")
+try:
+    corrimiento = int(sys.argv[2])
+except ValueError:
+    print("El corrimiento debe ser un número entero.")
+    sys.exit(1)
 
-mensaje_cifrado = cifrar_cesar(mensaje, saltos)
+resultado = cifrar_cesar(texto, corrimiento)
 
-print("\nMensaje original:", mensaje)
-print("Cantidad de saltos:", saltos)
-print("Mensaje cifrado:", mensaje_cifrado)
+print(resultado)
